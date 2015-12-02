@@ -17,7 +17,7 @@ The Lightbox should support the following:
 - Common ways to close the lightbox (close button and ESC key).
 - Fetching remote content.
 - Rendering the content in the page.
-- Any link with containing the `js-lightbox-opener` class should open the `href` in a new lightbox instance.
+- Any link with the `js-lightbox-opener` class should open the `href` in a new lightbox instance.
 - When the lightbox is open, the page behind it should not scroll.
 
 #### Optional 
