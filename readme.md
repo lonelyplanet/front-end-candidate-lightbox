@@ -20,12 +20,12 @@ The Lightbox should support the following:
 - Any link with the `js-lightbox-opener` class should open the `href` in a new lightbox instance.
 - When the lightbox is open, the page behind it should not scroll.
 
-#### Optional 
+#### Optional
 
 - CSS animations/transitions for opening effects.
 - Write in ES6 and transpile to ES5.
 - Turn your lightbox into a jQuery plugin.
 - Use jshint/jslint to analyze your code.
 - Automate your workflow using Grunt or Gulp.
-- Use SASS and a CSS autoprefixer.
+- Use Sass and a CSS autoprefixer.
 - Add unit tests.
