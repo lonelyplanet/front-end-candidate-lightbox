@@ -1,0 +1,24 @@
+$breakpoints: (
+ xs: 20em,
+ sm: 768px,
+ md: 992px,
+ lg: 1200px,
+ xl: 1340px
+);
+
+// Extra Small: Small mobile
+$bp__xs: map-get($breakpoints, xs);
+
+// Small: Larger mobile
+$bp__sm: map-get($breakpoints, sm);
+
+// Medium: Tablet
+$bp__md: map-get($breakpoints, md);
+
+// Large: Landscape tablet, beginning desk size
+$bp__lg: map-get($breakpoints, lg);
+
+// Extra Large: Landscape tablet, beginning desk size
+$bp__xl: map-get($breakpoints, xl);
+
+$unit:       1.25em;

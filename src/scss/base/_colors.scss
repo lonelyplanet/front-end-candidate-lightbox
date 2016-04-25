@@ -1,0 +1,17 @@
+/***
+Colors
+--------------------------------------------------------- */
+$brandPrimary: #8cbeb2; /* blue */
+$brandPrimaryLight: lighten($brandPrimary, 10%);
+$brandPrimaryDark: darken($brandPrimary, 10%);
+
+$brandSecondary: #5c4b51; /* dark purple */
+$brandSecondaryLight: lighten($brandSecondary, 10%);
+$brandSecondaryDark: darken($brandSecondary, 10%);
+
+// Aux Colors
+$white: #fff;
+$black: #000;
+
+$blackTransparent: rgba(0,0,0, .75);
+$whiteTransparent: rgba(255,255,255, .75);
