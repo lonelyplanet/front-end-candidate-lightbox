@@ -12,16 +12,14 @@ It has been started for you, but implementation details are up to you.
 
 The Lightbox should support the following:
 
-- Be able to create a lightbox instance by calling `new Lightbox()`.
-- Open and close a lightbox instance with the `open()` and `close()` methods.
+- Be able to create a lightbox instance
 - Common ways to close the lightbox (close button and ESC key).
 - Fetching remote content.
 - Rendering the content in the page.
-- Any link with the `js-lightbox-opener` class should open the `href` in a new lightbox instance.
 - When the lightbox is open, the page behind it should not scroll.
 
 #### Optional
-
+- Build the component w/ React
 - CSS animations/transitions for opening effects.
 - Write in ES6 and transpile to ES5.
 - Turn your lightbox into a jQuery plugin.
