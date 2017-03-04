@@ -138,7 +138,7 @@ class LightboxExample extends Component {
         <div>
           Use the search input to find any photos you want.
           You can search for cute dogs, scenery, food, or anything you can imagine!
-          Enter what you'd like to see and open the lightbox to see the results!
+          Enter what you would like to see and open the lightbox to see the results!
         </div>
         <input type="text" id="search" placeholder="What kind of photos?" />
         <Button
