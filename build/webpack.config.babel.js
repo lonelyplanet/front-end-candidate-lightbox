@@ -112,6 +112,10 @@ const loaders = function getLoaders() {
         test: /\.css$/,
         loader: 'style-loader!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader',
       },
+      image: {
+        test: /\.(jpe?g|png|gif)$/,
+        loader: 'file-loader?name=src/[name].[ext]',
+      }
   };
 
   return _.toArray(baseLoaders);
