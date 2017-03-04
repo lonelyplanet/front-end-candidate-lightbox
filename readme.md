@@ -62,3 +62,4 @@ npm run test
 - Add production build config
 - See if there are any better image APIs or open data sets
 - Publish Lightbox to npm registry for others to use
+- Add localization/internationalization capabilities
