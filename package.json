@@ -95,6 +95,7 @@
     "react-addons-shallow-compare": "^15.1.0",
     "react-addons-test-utils": "^15.1.0",
     "react-css-modules": "^3.7.4",
+    "react-loader": "^2.4.0",
     "react-modal": "^1.7.1",
     "react-transform-catch-errors": "^1.0.0",
     "react-transform-hmr": "^1.0.1",

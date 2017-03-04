@@ -146,6 +146,9 @@ class Lightbox extends Component {
       onClose,
     } = this.props;
 
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    }
     return (
       <div>
         <Modal
