@@ -52,16 +52,16 @@ class LightboxExample extends Component {
     this.setState({ isOpen: true });
   }
 
-  closeLightbox() {
-    this.setState({ isOpen: false });
-  }
-
   onClickNext() {
     this.setState({ imageIndex: (this.state.imageIndex + 1) % images.length });
   }
 
   onClickPrev() {
     this.setState({ imageIndex: (this.state.imageIndex + images.length - 1) % images.length });
+  }
+
+  closeLightbox() {
+    this.setState({ isOpen: false });
   }
 
   render() {
@@ -84,8 +84,8 @@ class LightboxExample extends Component {
           onClickNext={this.onClickNext}
           onClickPrev={this.onClickPrev}
           imageIndex={imageIndex}
+          showCaption
         />
-
       </div>
     );
   }

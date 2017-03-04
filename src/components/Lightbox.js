@@ -1,13 +1,34 @@
 import React, { Component, PropTypes } from 'react';
 import cssModules from 'react-css-modules';
 import Modal from 'react-modal';
-import Button from './Button';
+import Navigation from './Navigation';
+import Caption from './Caption';
 
 const styles = require('../styles/lightbox.css');
 
 const PREV_KEY = 37;
 const NEXT_KEY = 39;
 const ESC_KEY = 27;
+const KEYDOWN = 'keydown';
+
+const MODAL_STYLE = {
+  overlay: {
+    zIndex: 1000,
+    backgroundColor: 'transparent',
+  },
+  content: {
+    backgroundColor: 'transparent',
+    overflow: 'hidden',
+    border: 'none',
+    borderRadius: 0,
+    padding: 0,
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    opacity: 1,
+  },
+};
 
 class Lightbox extends Component {
   constructor(props) {
@@ -18,14 +39,13 @@ class Lightbox extends Component {
     this.handleKeydown = this.handleKeydown.bind(this);
   }
 
-  componentDidMount () {
+  componentDidMount() {
     if (this.props.isOpen && this.props.enableKeyboardInput) {
-      window.addEventListener('keydown', this.handleKeydown);
+      window.addEventListener(KEYDOWN, this.handleKeydown);
     }
   }
 
-  componentWillReceiveProps (nextProps) {
-
+  componentWillReceiveProps(nextProps) {
     if (nextProps.preloadNextImage) {
       const nextIndex = nextProps.imageIndex + 1;
       const prevIndex = nextProps.imageIndex - 1;
@@ -35,20 +55,20 @@ class Lightbox extends Component {
     }
 
     if (!this.props.isOpen && nextProps.isOpen && nextProps.enableKeyboardInput) {
-      window.addEventListener('keydown', this.handleKeydown);
+      window.addEventListener(KEYDOWN, this.handleKeydown);
     }
     if (!nextProps.isOpen && nextProps.enableKeyboardInput) {
-      window.removeEventListener('keydown', this.handleKeydown);
+      window.removeEventListener(KEYDOWN, this.handleKeydown);
     }
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     if (this.props.enableKeyboardInput) {
-      window.removeEventListener('keydown', this.handleKeydown);
+      window.removeEventListener(KEYDOWN, this.handleKeydown);
     }
   }
 
-  preloadImage (index) {
+  preloadImage(index) {
     const image = this.props.images[index];
 
     if (!image) return;
@@ -58,7 +78,7 @@ class Lightbox extends Component {
     img.src = image.src;
   }
 
-  handleNext (event) {
+  handleNext(event) {
     if (event) {
       event.preventDefault();
       event.stopPropagation();
@@ -67,7 +87,7 @@ class Lightbox extends Component {
     this.props.onClickNext();
   }
 
-  handlePrev (event) {
+  handlePrev(event) {
     if (event) {
       event.preventDefault();
       event.stopPropagation();
@@ -76,8 +96,8 @@ class Lightbox extends Component {
     this.props.onClickPrev();
   }
 
-  handleKeydown (event) {
-    switch(event.keyCode) {
+  handleKeydown(event) {
+    switch (event.keyCode) {
       case PREV_KEY:
         this.handlePrev(event);
         return true;
@@ -92,10 +112,11 @@ class Lightbox extends Component {
     }
   }
 
-  renderImages () {
+  renderImages() {
     const {
       imageIndex,
       images,
+      showCaption
     } = this.props;
 
     if (!images || !images.length) return null;
@@ -105,16 +126,15 @@ class Lightbox extends Component {
     return (
       <figure>
         <img
-          styleName='image'
+          styleName="image"
           alt={image.alt}
           src={image.src}
         />
-        <div styleName="caption">
-          <div styleName="caption-content">
-            <div styleName="caption-body">{image.caption}</div>
-            <div styleName="photo-count">{imageIndex + 1} of {images.length}</div>
-          </div>
-        </div>
+        {!!showCaption && <Caption
+          body={image.caption}
+          index={imageIndex + 1}
+          total={images.length}
+        />}
       </figure>
     );
   }
@@ -126,40 +146,21 @@ class Lightbox extends Component {
       onClose,
     } = this.props;
 
-    const modalStyle = {
-      overlay: {
-        zIndex: 1000,
-        backgroundColor: 'transparent',
-      },
-      content: {
-        backgroundColor: 'transparent',
-        overflow: 'hidden',
-        border: 'none',
-        borderRadius: 0,
-        padding: 0,
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        opacity: 1,
-      },
-    };
-
     return (
-      <div styleName="lightbox">
+      <div>
         <Modal
           isOpen={isOpen}
           onRequestClose={onClose}
-          style={modalStyle}
-          contentLabel='Lightbox'
+          style={MODAL_STYLE}
+          contentLabel="Lightbox"
         >
           <div styleName="outer">
-            <div styleName="inner"  onClick={!!closeOnClick && onClose}>
-              <div styleName="navigation">
-                <Button label="X" onClick={onClose} />
-                <Button label="< Prev" type="" onClick={this.handlePrev} />
-                <Button label="Next >" type="" onClick={this.handleNext} />
-              </div>
+            <div styleName="inner" onClick={!!closeOnClick && onClose}>
+              <Navigation
+                handleNext={this.handleNext}
+                handlePrev={this.handlePrev}
+                onClose={onClose}
+              />
               {this.renderImages()}
             </div>
           </div>
@@ -170,14 +171,25 @@ class Lightbox extends Component {
 }
 
 Lightbox.defaultProps = {
-  imageIndex: 0,
-  enableKeyboardInput: true,
-  preloadNextImage: true,
   closeOnClick: false,
+  enableKeyboardInput: true,
+  imageIndex: 0,
+  images: [],
+  preloadNextImage: true,
+  showCaption: false,
 };
 
 Lightbox.propTypes = {
-
+  closeOnClick: PropTypes.bool,
+  enableKeyboardInput: PropTypes.bool,
+  imageIndex: PropTypes.number,
+  images: PropTypes.array.isRequired,
+  isOpen: PropTypes.bool,
+  onClickNext: PropTypes.func,
+  onClickPrev: PropTypes.func,
+  onClose: PropTypes.func,
+  preloadNextImage: PropTypes.bool,
+  showCaption: PropTypes.bool,
 };
 
 export default cssModules(Lightbox, styles);
