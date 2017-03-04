@@ -1,20 +1,51 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import cssModules from 'react-css-modules';
+import Modal from 'react-modal';
 
 const styles = require('../styles/lightbox.css');
 
-const Lightbox = props => (
-  <li>
-    <span>{props.label}</span>
-  </li>
-);
+const customStyles = {
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)'
+  }
+};
+
+class Lightbox extends Component {
+  constructor(props) {
+    super(props);
+
+  }
+
+  render() {
+    const { isOpen } = this.props;
+    const noop = () => {};
+
+    return (
+      <div styleName="lightbox">
+        <Modal
+          isOpen={isOpen}
+          onRequestClose={noop}
+          onAfterOpen={() => this.outerEl && this.outerEl.focus()}
+          style={customStyles}
+        >
+          <div>I am a modal!!!</div>
+        </Modal>
+      </div>
+    );
+  }
+}
 
 Lightbox.defaultProps = {
-  label: '',
+
 };
 
 Lightbox.propTypes = {
-  label: PropTypes.string.isRequired,
+
 };
 
 export default cssModules(Lightbox, styles);

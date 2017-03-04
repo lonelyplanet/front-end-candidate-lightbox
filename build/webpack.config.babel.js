@@ -1,9 +1,13 @@
 require('babel-core/register')  ({
-    ignore: /node_modules\/(?!dv-*)/
+    ignore: /node_modules\//
 });
+
 import path from 'path';
 import webpack from 'webpack';
 import _ from 'lodash';
+
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 import postCssPxToRem from 'postcss-pxtorem';
 
@@ -14,23 +18,36 @@ const EXAMPLE = 'example';
 // ------------------------------------
 // Plugins
 // ------------------------------------
-const plugins = (additionalPlugins) => {
+const plugins = () => {
   return [
     new webpack.DefinePlugin(environmentVariables),
     new webpack.optimize.OccurrenceOrderPlugin(),
-    ...additionalPlugins,
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.IgnorePlugin(/webpack-stats\.json$/),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      inject: 'body',
+      template: './example/index.html',
+    }),
+    new ExtractTextPlugin({
+      filename: 'index.css',
+      allChunks: true
+    }),
   ];
-}
+};
 
 // ------------------------------------
 // BaseConfig
 // ------------------------------------
-const baseConfig = function getBaseConfig(additionalOutputParameters) {
+const baseConfig = function getBaseConfig() {
   const baseConfig = {
     context: path.resolve('./'),
     devtool: 'source-map',
     entry: {
-      index: `./${SRC}/index.js`,
+      index: [
+        'webpack-hot-middleware/client?reload=true',
+        path.resolve(`${EXAMPLE}/index.js`)
+      ],
     },
     resolve: {
       root: path.resolve(`./${SRC}`),
@@ -43,35 +60,27 @@ const baseConfig = function getBaseConfig(additionalOutputParameters) {
     module: {},
   };
 
-  _.merge(baseConfig, additionalOutputParameters);
-
   return baseConfig;
-}
+};
 
 // ------------------------------------
 // Bundle Output
 // ------------------------------------
-const output = function getLoaders(additionalOutputParameters) {
-  const baseOutput = {
-    path: path.resolve(`./${DIST}`),
-    filename: '[name].js',
-    chunkFilename: '[name].js',
-    publicPath: '/',
-    libraryTarget: 'umd',
-    library: 'LPLightbox',
-  };
-
-  _.merge(baseOutput, additionalOutputParameters);
-
-  return baseOutput;
-}
+const output = () => ({
+  path: path.resolve(`./${DIST}`),
+  filename: '[name].js',
+  chunkFilename: '[name].js',
+  publicPath: '/',
+  libraryTarget: 'umd',
+  library: 'LPLightbox',
+});
 
 // ------------------------------------
 // PostCss
 // ------------------------------------
 const postCss = (webpack) => {
   return [
-    require('post-cssnext'),
+    require('postcss-cssnext'),
     require('lost'),
     postCssPxToRem({
         rootValue: 16,
@@ -79,12 +88,12 @@ const postCss = (webpack) => {
         mediaQuery: true,
     }),
   ];
-}
+};
 
 // ------------------------------------
 // Loaders
 // ------------------------------------
-const loaders = function getLoaders(additionalLoaders) {
+const loaders = function getLoaders() {
   const baseLoaders = {
       jsx: {
         test: /\.jsx?$/,
@@ -93,6 +102,7 @@ const loaders = function getLoaders(additionalLoaders) {
             path.resolve(`./${SRC}`),
             path.resolve(`./${EXAMPLE}`),
           ],
+        loaders: ['babel'],
       },
       json: {
         test: /\.json$/,
@@ -100,15 +110,12 @@ const loaders = function getLoaders(additionalLoaders) {
       },
       css: {
         test: /\.css$/,
+        loader: 'style-loader!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader',
       },
   };
 
-  _.merge(baseLoaders, additionalLoaders);
-
-  const loaders = _.toArray(baseLoaders);
-
-  return loaders;
-}
+  return _.toArray(baseLoaders);
+};
 
 // ------------------------------------
 // Environment
@@ -125,4 +132,11 @@ const environmentVariables = {
   __BASENAME__: JSON.stringify(process.env.BASENAME || ''),
 };
 
-export {baseConfig, loaders, plugins, postCss, output};
+const webpackConfig = baseConfig();
+
+webpackConfig.plugins = plugins();
+webpackConfig.postcss = postCss(webpack);
+webpackConfig.module.loaders = loaders();
+webpackConfig.output = output();
+
+export default webpackConfig;

@@ -5,7 +5,7 @@ module.exports = function(config) {
 
     browsers: ['PhantomJS'],
 
-    singleRun: !!process.env.CONTINUOUS_INTEGRATION,
+    singleRun: true,
 
     frameworks: [ 'mocha' ],
 
@@ -52,12 +52,7 @@ module.exports = function(config) {
         'react/lib/ReactContext': true
       },
       postcss: function(webpack) {
-        return [
-          // autoprefixer({ browsers: ['last 2 versions'] }),
-          // require('postcss-simple-vars')({
-          //   variables: require('dv-layout').settings
-          // }),
-        ];
+        return [];
       },
       plugins: [
         new webpack.IgnorePlugin(/\.json$/),

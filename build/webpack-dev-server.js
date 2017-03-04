@@ -3,7 +3,7 @@ import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
-import webpackConfig from './webpack.dev.config.babel';
+import webpackConfig from './webpack.config.babel';
 
 const SERVER_PORT = 3000;
 
@@ -22,6 +22,7 @@ const serverOptions = {
 };
 
 const middleware = webpackMiddleware(compiler, serverOptions);
+
 app.use(middleware);
 app.use(webpackHotMiddleware(compiler));
 

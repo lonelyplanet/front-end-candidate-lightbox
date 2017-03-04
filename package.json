@@ -4,11 +4,9 @@
   "version": "0.0.1",
   "main": "./dist/index.js",
   "scripts": {
-    "build:dist": "npm run lint && npm run test && better-npm-run build:dist",
     "lint": "eslint -c .eslintrc src",
     "dev": "concurrently --kill-others \"better-npm-run dev:watch\" ",
-    "test": "better-npm-run test",
-    "test:watch": "better-npm-run test:watch"
+    "test": "better-npm-run test"
   },
   "betterScripts": {
     "test": {
@@ -17,20 +15,6 @@
         "NODE_PATH": "./src",
         "NODE_ENV": "production",
         "CONTINUOUS_INTEGRATION": false
-      }
-    },
-    "test:watch": {
-      "command": "karma start ./build/karma.conf.js",
-      "env": {
-        "NODE_PATH": "./src",
-        "NODE_ENV": "production"
-      }
-    },
-    "build:dist": {
-      "command": "webpack --config ./build/webpack.prod.config.babel.js",
-      "env": {
-        "NODE_PATH": "./src",
-        "NODE_ENV": "production"
       }
     },
     "dev:watch": {
@@ -88,8 +72,8 @@
     "json-loader": "^0.5.4",
     "jsx-chai": "^4.0.0",
     "karma": "^0.13.21",
-    "karma-cli": "^1.0.0",
     "karma-chai": "^0.1.0",
+    "karma-cli": "^1.0.0",
     "karma-coverage": "^1.0.0",
     "karma-mocha": "^1.0.1",
     "karma-mocha-reporter": "^2.0.3",
@@ -102,14 +86,15 @@
     "phantomjs-polyfill": "0.0.2",
     "phantomjs-prebuilt": "^2.1.4",
     "postcss": "^5.2.0",
+    "postcss-cssnext": "^2.8.0",
     "postcss-loader": "^0.9.1",
     "postcss-mixins": "^4.0.2",
-    "postcss-cssnext": "^2.8.0",
     "postcss-pxtorem": "^3.3.1",
     "postcss-simple-vars": "^2.0.0",
     "react-addons-shallow-compare": "^15.1.0",
     "react-addons-test-utils": "^15.1.0",
     "react-css-modules": "^3.7.4",
+    "react-modal": "^1.7.1",
     "react-transform-catch-errors": "^1.0.0",
     "react-transform-hmr": "^1.0.1",
     "redbox-react": "^1.2.6",
