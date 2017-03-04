@@ -99,7 +99,7 @@
     "react-transform-catch-errors": "^1.0.0",
     "react-transform-hmr": "^1.0.1",
     "redbox-react": "^1.2.6",
-    "sinon": "^1.17.2",
+    "sinon": "2.0.0-pre.5",
     "strip-loader": "^0.1.0",
     "style-loader": "^0.13.0",
     "webpack": "^1.12.9",

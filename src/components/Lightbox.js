@@ -175,6 +175,7 @@ Lightbox.defaultProps = {
   enableKeyboardInput: true,
   imageIndex: 0,
   images: [],
+  isOpen: false,
   preloadNextImage: true,
   showCaption: false,
 };

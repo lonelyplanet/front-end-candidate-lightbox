@@ -4,7 +4,7 @@ import cssModules from 'react-css-modules';
 const styles = require('../styles/lightbox.css');
 
 const Button = props => (
-  <button styleName="button" onClick={props.onClick} >
+  <button styleName="button" onClick={props.onClick} id={props.id} >
       {props.label}
   </button>
 );
@@ -15,6 +15,7 @@ Button.defaultProps = {
 };
 
 Button.propTypes = {
+  id: PropTypes.string,
   label: PropTypes.string.isRequired,
   onClick: PropTypes.func,
   type: PropTypes.string.isRequired,

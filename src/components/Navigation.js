@@ -6,9 +6,9 @@ const styles = require('../styles/lightbox.css');
 
 const Navigation = props => (
   <div styleName="navigation">
-    <Button label={props.closeLabel} onClick={props.onClose} />
-    <Button label={props.prevLabel} onClick={props.handlePrev} />
-    <Button label={props.nextLabel} onClick={props.handleNext} />
+    <Button label={props.closeLabel} onClick={props.onClose} id="close" />
+    <Button label={props.prevLabel} onClick={props.handlePrev} id="prev" />
+    <Button label={props.nextLabel} onClick={props.handleNext} id="next" />
   </div>
 );
 

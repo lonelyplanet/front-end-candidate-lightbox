@@ -6,8 +6,8 @@ const styles = require('../styles/lightbox.css');
 const Caption = props => (
   <div styleName="caption">
     <div styleName="caption-content">
-      <div styleName="caption-body">{props.body}</div>
-      <div styleName="photo-count">{props.index} of {props.total}</div>
+      <div styleName="caption-body" id="body">{props.body}</div>
+      <div styleName="photo-count" id="count">{props.index} of {props.total}</div>
     </div>
   </div>
 );
