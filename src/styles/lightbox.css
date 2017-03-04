@@ -41,3 +41,85 @@ svg {
 .lightbox {
   /* Your code here */
 }
+
+.outer {
+  background-color: rgba(0, 0, 0, 0.85);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  -ms-content-zooming: none;
+  -ms-user-select: none;
+  -ms-touch-select: none;
+  touch-action: none;
+}
+
+.inner {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  right: 0;
+  bottom: 10px;
+}
+
+.image {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  bottom: 35px;
+  left: 0;
+  margin: auto;
+  max-width: 100%;
+  max-height: calc(100vh - 150px);
+  -ms-content-zooming: none;
+  -ms-user-select: none;
+  -ms-touch-select: none;
+  touch-action: none;
+}
+
+.caption {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-height: 150px;
+  min-height: 45px;
+}
+
+.caption-content {
+  padding: 10px 20px;
+  color: #FFF;
+  font-size: 32px;
+}
+
+.caption-body {
+  float: left;
+}
+
+.photo-count {
+  float: right;
+}
+
+.inner .button {
+  display: block;
+  margin: 10px;
+}
+
+.navigation {
+  display: flex;
+  justify-content: center;
+}
+
+@media screen and (max-width: 640px) {
+  .caption-content div {
+    float: none;
+  }
+
+  .photo-count {
+    clear: left;
+  }
+}
