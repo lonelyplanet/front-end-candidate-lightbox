@@ -1,29 +1,64 @@
-# Lonely Planet Front End Code Test
+# Tena Percy - Lightbox
 
-Welcome to the Lonely Planet coding test for front end developers wishing to join our team.
-All you need to do is fork this repository, make your changes, and then submit a pull request which we will then review.
+This is a React application which allows a user to search for images and view them in a lightbox. 
+When the user enters a search term and clicks 'Open Lightbox' the ShutterStock API is called to get the first 10 images for that search.
+Once the images are loaded, the user can navigate forwards and backwards through them using either the navigation buttons or their keyboard.
 
-## Build a lightbox
 
-We want to see your front-end skills and how you approach a problem with a specific set of requirements.
-It has been started for you, but implementation details are up to you.
+## Lightbox Properties
+- closeOnClick (boolean): If true the lightbox will close when the user clicks outside of it
+- enableKeyboardInput (boolean): If true the user can use their keyboard to navigate the images
+- imageIndex (number): The current image to display
+- images (array): A list of objects representing the images. Each image has a 'src' and 'caption' key
+- isOpen (boolean): Determines whether to show the lightbox or not
+- onClickNext (function): Handler for navigating to the next image
+- onClickPrev (function): Handler for navigating to the previous image
+- onClose (function): Handler for closing the lightbox
+- preloadNextImage (boolean): If true, the next image will be loaded in advance
+- showCaption (boolean): Determines whether or not to display the caption bar for the images
 
-### Technical Requirements
+## Example
+```
+import Lightbox from './components/Lightbox';
 
-The Lightbox should support the following:
+const images = [{src: 'image1.jpg', caption: 'Image 1'}, {src: 'image2.jpg', caption: 'Image2'}];
 
-- Be able to create a lightbox instance
-- Common ways to close the lightbox (close button and ESC key).
-- Fetching remote content.
-- Rendering the content in the page.
-- When the lightbox is open, the page behind it should not scroll.
+<Lightbox
+   isOpen={true}
+   onClose={closeHandler}
+   images={images}
+   onClickNext={nextHandler}
+   onClickPrev={prevhandler}
+   imageIndex=0
+   showCaption={true}
+/>
+ ```
 
-#### Optional
-- Build the component w/ React
-- CSS animations/transitions for opening effects.
-- Write in ES6 and transpile to ES5.
-- Turn your lightbox into a jQuery plugin.
-- Use jshint/jslint to analyze your code.
-- Automate your workflow using Grunt or Gulp.
-- Use Sass and a CSS autoprefixer.
-- Add unit tests.
+
+## Commands
+
+To run the application you will need to clone the repo. Below are some useful commands:
+
+Run the application in dev mode
+```
+ npm run dev
+```
+
+Run the linter
+```
+npm run lint 
+```
+
+Run the unit tests
+```
+npm run test 
+```
+
+## Future Improvements
+- Implement Redux for betting state/action handling
+- Add more search fields for users
+- Create mixins and variables for the css modules
+- Create better form components (button, input, loaders)
+- Add production build config
+- See if there are any better image APIs or open data sets
+- Publish Lightbox to npm registry for others to use
