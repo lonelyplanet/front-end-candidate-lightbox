@@ -55,11 +55,11 @@ npm run test
 ```
 
 ## Future Improvements
-- Implement Redux for betting state/action handling
-- Add more search fields for users
-- Create mixins and variables for the css modules
+- Implement Redux (maybe redux-form as well) for better state/action handling
+- Add more search fields for users (how many photos to fetch, different media types, etc...)
+- Create mix-ins and variables for the css modules/clean up the styles for the example page
 - Create better form components (button, input, loaders)
-- Add production build config
+- Add production build config and dist bundler
 - See if there are any better image APIs or open data sets
-- Publish Lightbox to npm registry for others to use
+- Publish Lightbox/Components to npm registry for others to use
 - Add localization/internationalization capabilities

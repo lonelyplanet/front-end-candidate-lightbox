@@ -29,6 +29,14 @@ svg {
   background: #288AD6;
 }
 
+.button:disabled {
+  opacity: .65;
+}
+
+.button:disabled:hover {
+  background: #297CBB;
+}
+
 .outer {
   background-color: rgba(0, 0, 0, 0.85);
   top: 0;

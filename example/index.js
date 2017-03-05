@@ -14,6 +14,7 @@ const CLIENT_ID = 'b775e1fad6e0be56e8af';
 const CLIENT_SECRET = '1f68fe2a3e30913467a32acb94237711caabae1c';
 
 const DEFAULT_STATE = Object.assign({}, {
+  disabled: true,
   images: [],
   imageIndex: 0,
   isOpen: false,
@@ -30,6 +31,7 @@ class LightboxExample extends Component {
     this.closeLightbox = this.closeLightbox.bind(this);
     this.onClickNext = this.onClickNext.bind(this);
     this.onClickPrev = this.onClickPrev.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
   }
 
   onOpenClick() {
@@ -53,8 +55,14 @@ class LightboxExample extends Component {
     this.setState({ imageIndex: (this.state.imageIndex + images.length - 1) % images.length });
   }
 
+  onInputChange(evt) {
+    if (evt.target.value) {
+      this.setState({ disabled: false });
+    }
+  }
+
   closeLightbox() {
-    this.setState({ isOpen: false });
+    this.setState({ isOpen: false, disabled: true });
   }
 
   formatImageArray(data) {
@@ -122,6 +130,7 @@ class LightboxExample extends Component {
 
   render() {
     const {
+      disabled,
       imageIndex,
       images,
       isOpen,
@@ -140,8 +149,14 @@ class LightboxExample extends Component {
           You can search for cute dogs, scenery, food, or anything you can imagine!
           Enter what you would like to see and open the lightbox to see the results!
         </div>
-        <input type="text" id="search" placeholder="What kind of photos?" />
+        <input
+          type="text"
+          id="search"
+          placeholder="What kind of photos?"
+          onChange={this.onInputChange}
+        />
         <Button
+          disabled={disabled}
           label="Open Lightbox"
           onClick={this.onOpenClick}
         />
