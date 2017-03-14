@@ -1,0 +1,111 @@
+.html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: #DBE6EC;
+  text-align: center;
+  min-height: 100vh;
+  font: 300 2vmax/1 'Source Code Pro', sans-serif;
+}
+
+svg {
+  width: 85vmin;
+  flex: 0 1 auto;
+}
+
+.button {
+  display: block;
+  background: #297CBB;
+  color: #FFF;
+  padding: 2vmin 4vmin;
+  border-radius: 1vmin;
+  text-decoration: none;
+  margin-top: 20px;
+}
+
+.button:hover {
+  background: #288AD6;
+}
+
+.button:disabled {
+  opacity: .65;
+}
+
+.button:disabled:hover {
+  background: #297CBB;
+}
+
+.outer {
+  background-color: rgba(0, 0, 0, 0.85);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+}
+
+.inner {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  right: 0;
+  bottom: 10px;
+}
+
+.image {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  bottom: 35px;
+  left: 0;
+  margin: auto;
+  max-width: 100%;
+  max-height: calc(100vh - 150px);
+}
+
+.caption {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  min-height: 45px;
+}
+
+.caption-content {
+  padding: 10px 20px;
+  color: #FFF;
+  font-size: 32px;
+}
+
+.caption-body {
+  float: left;
+}
+
+.photo-count {
+  float: right;
+}
+
+.inner .button {
+  margin: 10px;
+}
+
+.navigation {
+  display: flex;
+  justify-content: center;
+}
+
+@media screen and (max-width: 640px) {
+  .caption-content div {
+    float: none;
+    padding-bottom: 5px;
+  }
+
+  .photo-count {
+    clear: left;
+  }
+}
