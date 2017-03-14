@@ -39,6 +39,11 @@ const images = [{src: 'image1.jpg', caption: 'Image 1'}, {src: 'image2.jpg', cap
 
 To run the application you will need to clone the repo. Below are some useful commands:
 
+Install the application and the dependencies
+```
+ npm install
+```
+
 Run the application in dev mode
 ```
  npm run dev
