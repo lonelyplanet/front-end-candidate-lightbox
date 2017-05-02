@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Lightbox renders correctly 1`] = `
+<div
+  className="lightbox"
+>
+  <div
+    className="lightbox-content"
+  >
+    <img
+      src=""
+    />
+    <h3>
+      Loading Cat…
+    </h3>
+    <a
+      className="button"
+      href={true}
+      onClick={[Function]}
+    >
+      Close
+    </a>
+  </div>
+</div>
+`;

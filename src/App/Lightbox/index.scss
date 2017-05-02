@@ -1,0 +1,23 @@
+.lightbox {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lightbox-content {
+  background: #ffffff;
+  width: 30vw;
+  padding: 1rem;
+
+  img {
+    max-width: 100%;
+    display: block;
+    margin: 0 auto 1rem;
+  }
+}
