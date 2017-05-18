@@ -24,6 +24,6 @@ The Lightbox should support the following:
 - Write in ES6 and transpile to ES5.
 - Turn your lightbox into a jQuery plugin.
 - Use jshint/jslint to analyze your code.
-- Automate your workflow using Grunt or Gulp.
+- Automate your workflow using tools like Webpack, Grunt or Gulp.
 - Use Sass and a CSS autoprefixer.
 - Add unit tests.
