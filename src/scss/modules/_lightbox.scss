@@ -1,0 +1,88 @@
+/***
+Lightbox
+--------------------------------------------------------- */
+.lightbox-open-btn {
+  display: inline-block;
+  background: $brandSecondary;
+  color: $white;
+  padding: 2vmin 4vmin;
+  border-radius: 1vmin;
+  text-decoration: none;
+  border: none;
+  margin: 20px;
+  font-size: 16px;
+  &:hover {
+    background: darken($brandSecondary, 10%);
+  }
+  &:focus,
+  &:active {
+    outline: none;
+  }
+}
+
+.lightbox {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 10;
+  background: $blackTransparent;
+  overflow-x: scroll;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-name: fadeIn;
+
+  .lightbox-close {
+    cursor: pointer;
+    color: $white;
+    position: absolute;
+    top: 0;
+    right: 10px;
+    font-size: 50px;
+    line-height: 50px;
+    @include bp-at-least($bp__sm) {
+      right: 20px;
+    }
+    &:after {
+      content: "\00D7";
+      @include bp-at-least($bp__sm) {
+        font-size: 80px;
+        line-height: 80px;
+      }
+    }
+  }
+
+  .content {
+    width: 80%;
+    max-width: 900px;
+    color: $black;
+    margin: 50px auto 20px;
+    padding: 30px;
+    background: $white;
+    @include bp-at-least($bp__sm) {
+      margin: 100px auto 20px;
+    }
+  }
+}
+
+// Animations
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

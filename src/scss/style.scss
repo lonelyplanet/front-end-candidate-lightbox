@@ -1,0 +1,68 @@
+/****
+  MAIN STYLESHEET
+------------------------------------------------------
+  TABLE OF CONTENTS
+  - Base ............ foundations, mixins, functions, vars
+  - Elements ........ single elements
+  - Layout .......... layout objects like grids, containers
+  - Modules ......... objects created by combining elements
+  - Vendor .......... vender style includes
+---------------------------------------------------------  */
+
+/***
+BASE
+---------------------------------------------------------
+  Your CSS begins with some global variables, a reset which
+  is basically Normalize, some mixins, and a print stylesheet.
+-----------------------------------------------------  */
+
+  // Colors
+  @import 'base/colors';
+
+  // Fonts
+  @import 'base/fonts';
+
+  // Breakpoints
+  @import 'base/breakpoints';
+  @import 'mixins/breakpoints';
+
+
+/***
+ELEMENTS
+---------------------------------------------------------
+  Global styling of elements.
+---------------------------------------------------------  */
+
+  @import "elements/body";
+
+
+/***
+LAYOUT
+---------------------------------------------------------
+  A large portion of CSS is structural layout. You will use
+  these helpers to create the scaffolding that will support
+  the elements that make up your site.
+---------------------------------------------------------  */
+
+
+
+/***
+MODULES
+---------------------------------------------------------
+  Reusable objects that are combinations
+  of elements and other modules.
+  When you create a new module, make sure the partial is
+  in the modules directory, and you import it below
+  Comment out any partial you don't need.
+---------------------------------------------------------  */
+
+
+  @import "modules/lightbox";
+
+
+
+/***
+VENDOR
+---------------------------------------------------------
+  Vendor styles from included libraries.
+---------------------------------------------------------  */
