@@ -1,14 +1,8 @@
-# Lonely Planet Front End Code Test
+# Lightbox Example
 
-Welcome to the Lonely Planet coding test for front end developers wishing to join our team.
-All you need to do is fork this repository, make your changes, and then submit a pull request which we will then review.
+This page displays a random gif every time the lightbox is opened.
 
-## Build a lightbox
-
-We want to see your front-end skills and how you approach a problem with a specific set of requirements.
-It has been started for you, but implementation details are up to you.
-
-### Technical Requirements
+#### Technical Requirements
 
 The Lightbox should support the following:
 
@@ -27,3 +21,22 @@ The Lightbox should support the following:
 - Automate your workflow using tools like Webpack, Grunt or Gulp.
 - Use Sass and a CSS autoprefixer.
 - Add unit tests.
+
+
+## Installation
+
+```
+nvm use
+npm install
+```
+
+## Running the server locally
+
+* Run `npm start` to start the server and watch for code changes
+* Open http://localhost:8080/ in your browser
+
+#### Other tasks
+
+* Run tests: `npm run test`
+* Lint code: `npm run lint`
+* Compile code: `npm run compile`

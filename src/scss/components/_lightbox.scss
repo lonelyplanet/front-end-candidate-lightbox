@@ -1,0 +1,19 @@
+.lightbox {
+    @include flex;
+
+    animation: fadein 2s;
+    background-color: $white;
+    min-height: $min-lightbox-size;
+    min-width: $min-lightbox-size;
+    padding: 50px;
+    position: relative;
+
+    .close {
+        cursor: pointer;
+        position: absolute;
+        right: $close-spacing;
+        top: $close-spacing;
+    }
+}
+
+
