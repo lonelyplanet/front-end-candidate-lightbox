@@ -1,0 +1,21 @@
+.button {
+    text-align: center;
+
+    button {
+        @include display-font;
+
+        background: $button-blue;
+        border: none;
+        border-radius: 1vmin;
+        color: $white;
+        margin: 0 auto;
+        padding: 2vmin 4vmin;
+        text-decoration: none;
+
+        &:focus { outline: 0; }
+
+        &:hover { background: $button-hover-blue; }
+    }
+}
+
+
