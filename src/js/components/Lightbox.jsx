@@ -13,7 +13,7 @@ class Lightbox extends React.Component {
     constructor(props) {
         super(props);
         const { tag, rating } = this.props;
-        this.giphyUrl = `http://api.giphy.com/v1/gifs/random?tag=${tag}&api_key=${KEY}&rating=${rating}`;
+        this.giphyUrl = `https://api.giphy.com/v1/gifs/random?tag=${tag}&api_key=${KEY}&rating=${rating}`;
 
         this.state = {
             image: {
