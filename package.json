@@ -11,6 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "babel-loader": "^7.1.2",
+    "babel-core": "^6.0.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-image-lightbox": "^4.2.1",
