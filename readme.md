@@ -1,3 +1,10 @@
+# first run npm install to get dependencies
+npm install
+# run npm start to launch webpack and run on localhost:8080
+npm start
+
+
+
 # Lonely Planet Front End Code Test
 
 Welcome to the Lonely Planet coding test for front end developers wishing to join our team.
