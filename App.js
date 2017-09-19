@@ -36,7 +36,7 @@ class App extends React.Component {
                     className="button js-lightbox-opener"
                     onClick={() => this.setState({ isOpen: true })}
                 >
-                    Open Lightbox
+                    Open Lightbox to see Cassini images
                 </button>
  
                 {isOpen &&
