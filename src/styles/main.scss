@@ -1,5 +1,7 @@
-@import '~/normalize.css/normalize.css';
+@import 'base';
+@import 'normalize';
 @import 'typography';
+@import 'components/buttons';
 @import 'components/lightbox';
 
 .container {

@@ -1,18 +1,24 @@
 import * as React from 'react'
 import * as PropTypes from 'prop-types'
 
+// prettier-ignore
+const EXAMPLE_IMAGES = new Map([
+  ['small',  'http://www.themistermen.co.uk/images/Mr_Small.jpg'],
+  ['medium', 'https://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2014/4/11/1397210130748/Spring-Lamb.-Image-shot-2-011.jpg'],
+  ['large',  'https://images7.alphacoders.com/671/671281.jpg'],
+])
+
 interface HomeProps {}
 class Home extends React.Component<HomeProps> {
   static contextTypes = {
     lightbox: PropTypes.object,
   }
 
-  _onShowDemoLightbox = () => {
-    const IMAGE =
-      'https://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2014/4/11/1397210130748/Spring-Lamb.-Image-shot-2-011.jpg'
-    this.context.lightbox.open(IMAGE, {
-      title: 'Sample image title goes here',
-      description: 'Here is a longer description that describes this image.',
+  _onOpenLightbox = (e: React.SyntheticEvent<HTMLButtonElement>) => {
+    const size = (e.target as any).getAttribute('data-size')
+    this.context.lightbox.open(EXAMPLE_IMAGES.get(size), {
+      title: 'Mock Image Title',
+      description: 'Here is some mock copy that helps describe this image.',
     })
   }
 
@@ -20,6 +26,20 @@ class Home extends React.Component<HomeProps> {
     return (
       <div className="container">
         <h1>Hello Lonely Planet</h1>
+        <section>
+          <hr />
+          {['small', 'medium', 'large'].map(size => (
+            <button
+              key={size}
+              className="btn btn-primary"
+              data-size={size}
+              onClick={this._onOpenLightbox}
+            >
+              Open {size} lightbox
+            </button>
+          ))}
+        </section>
+        <hr />
         <p>
           Snackwave single-origin coffee fam retro YOLO typewriter. Gentrify
           four dollar toast cliche, leggings poutine truffaut gluten-free
@@ -39,7 +59,13 @@ class Home extends React.Component<HomeProps> {
           try-hard affogato flannel master cleanse af enamel pin heirloom
           keffiyeh.
         </p>
-        <button onClick={this._onShowDemoLightbox}>Open Demo Lightbox</button>
+        <button
+          className="btn btn-primary"
+          data-size="medium"
+          onClick={this._onOpenLightbox}
+        >
+          Open Demo Lightbox
+        </button>
         <p>
           Readymade fixie authentic green juice banjo, pork belly live-edge
           retro man braid waistcoat skateboard gastropub forage intelligentsia.
@@ -70,7 +96,32 @@ class Home extends React.Component<HomeProps> {
           Vice brooklyn distillery biodiesel lumbersexual, letterpress ethical
           flannel kickstarter.
         </p>
-        <button onClick={this._onShowDemoLightbox}>Open Demo Lightbox</button>
+        <button
+          className="btn btn-primary"
+          data-size="large"
+          onClick={this._onOpenLightbox}
+        >
+          Open Demo Lightbox
+        </button>
+        <p>
+          Knausgaard gochujang fashion axe hexagon vape swag. Blue bottle
+          kinfolk pabst taxidermy normcore enamel pin 8-bit truffaut mustache.
+          Banh mi subway tile readymade narwhal cloud bread jianbing, tumblr
+          pour-over thundercats pitchfork flannel yuccie woke. Salvia kogi
+          leggings, street art put a bird on it whatever +1 austin thundercats.
+          Banjo four dollar toast irony humblebrag selfies tacos williamsburg
+          pok pok.
+        </p>
+        <p>
+          Pug iPhone williamsburg, flannel viral trust fund cardigan taxidermy.
+          Pour-over tote bag unicorn waistcoat franzen, kogi truffaut. Affogato
+          sustainable edison bulb, cloud bread tofu cray bushwick gochujang
+          slow-carb chillwave helvetica YOLO hammock palo santo dreamcatcher.
+          Before they sold out jianbing blog venmo typewriter, helvetica tumeric
+          single-origin coffee adaptogen retro sriracha hexagon glossier tumblr.
+          Vice brooklyn distillery biodiesel lumbersexual, letterpress ethical
+          flannel kickstarter.
+        </p>
       </div>
     )
   }

@@ -1,0 +1,23 @@
+.btn {
+  margin: 0 0.75rem 0 0;
+  padding: 0.75rem;
+  font-size: 1rem;
+  transform: translate3d(0, 0, 0);
+  transition: 0.25s background, 0.25s transform;
+  border-style: none;
+  border-radius: 5px;
+
+  &-primary {
+    color: #fff;
+    background: $brand-primary;
+
+    &:hover {
+      background: transparentize($brand-primary, 0.1);
+    }
+  }
+
+  &:hover {
+    cursor: pointer;
+    transform: translateY(-1px);
+  }
+}
