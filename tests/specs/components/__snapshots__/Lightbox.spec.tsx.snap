@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders a loader and placeholder while the image is loading 1`] = `
+<div
+  className="lightbox__loader"
+>
+  <div
+    className="lightbox__image-placeholder"
+  />
+  <div
+    className="lightbox__spinner-wrapper"
+  >
+    <i
+      className="lightbox__spinner fa fa-spinner fa-spin fa-fw"
+    />
+  </div>
+</div>
+`;
+
+exports[`Unhides the image once it has finished loading 1`] = `
+<img
+  alt="Mock image description"
+  className="lightbox__image"
+  hidden={false}
+  onLoad={[Function]}
+  src="http://www.themistermen.co.uk/images/Mr_Small.jpg"
+  title="Mock image title"
+/>
+`;
