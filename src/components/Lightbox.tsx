@@ -30,11 +30,13 @@ class Lightbox extends React.Component<LightboxProps> {
   componentDidMount() {
     document.body.classList.add('lightbox-open')
     document.addEventListener('click', this._checkForOutsideClick)
+    document.addEventListener('keydown', this._checkKeydownEvent)
   }
 
   componentWillUnmount() {
     document.body.classList.remove('lightbox-open')
     document.removeEventListener('click', this._checkForOutsideClick)
+    document.removeEventListener('keydown', this._checkKeydownEvent)
   }
 
   /**
@@ -45,6 +47,20 @@ class Lightbox extends React.Component<LightboxProps> {
   private _checkForOutsideClick = (e: any) => {
     if (this._lightbox && !this._lightbox.contains(e.target)) {
       this.props.onClose()
+    }
+  }
+
+  /**
+   * Handles all keydown events that bubble up to the document root. If the
+   * Escape key is pressed, close the lightbox.
+   */
+  private _checkKeydownEvent = (e: any) => {
+    switch (e.key) {
+      case 'Escape':
+        this.props.onClose()
+        break
+      default:
+        // noop
     }
   }
 
