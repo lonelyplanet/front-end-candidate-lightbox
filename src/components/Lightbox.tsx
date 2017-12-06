@@ -10,6 +10,10 @@ export interface LightboxProps {
 interface LightboxState {
   isLoading: boolean
   transition: 'enter' | 'leave' | null
+  dimensions: {
+    height: number | null
+    width: number | null
+  }
 }
 class Lightbox extends React.Component<LightboxProps> {
   /** Ref to the lightbox DOM node */
@@ -30,6 +34,10 @@ class Lightbox extends React.Component<LightboxProps> {
     // code and felt it warranted noting. I could very well wrong in this.
     isLoading: true,
     transition: 'enter',
+    dimensions: {
+      height: null,
+      width: null,
+    },
   }
 
   componentDidMount() {
@@ -82,28 +90,47 @@ class Lightbox extends React.Component<LightboxProps> {
         this.props.onClose()
       }, 250)
     })
-    this._onClose()
   }
 
   private _onLightboxRef = (node: HTMLDivElement) => {
     this._lightbox = node
   }
 
-  private _onImageLoad = () => {
-    this.setState({ isLoading: false })
+  private _onImageLoad = async (e: any) => {
+    const { height, width } = e.target
+    // await new Promise(res => setTimeout(res, 2000)) // enable this to mock longer load times
+    this.setState({
+      isLoading: false,
+      dimensions: { height, width },
+    })
   }
 
   renderLoader() {
     return (
-      <div className='lightbox__loader'>
-        <h2>Loading</h2>
+      <div className="lightbox__loader">
+        <div className='lightbox__image-placeholder' />
+        <div className='lightbox__spinner-wrapper'>
+          <i className='lightbox__spinner fa fa-spinner fa-spin fa-fw' />
+        </div>
+      </div>
+    )
+  }
+
+  renderFooter() {
+    const { title, description } = this.props
+    if (!(!title || description)) return
+
+    return (
+      <div className="lightbox__footer">
+        {title && <h3 className="lightbox__title">{title}</h3>}
+        {description && <p className="lightbox__description">{description}</p>}
       </div>
     )
   }
 
   render() {
-    const { imageSrc, title, description, onClose } = this.props
-    const { isLoading, transition } = this.state
+    const { imageSrc } = this.props
+    const { isLoading, transition, dimensions: { width } } = this.state
 
     return (
       <div
@@ -112,7 +139,7 @@ class Lightbox extends React.Component<LightboxProps> {
           'lightbox-wrapper--leave': transition === 'leave',
         })}
       >
-        <div className="lightbox" ref={this._onLightboxRef}>
+        <div className="lightbox" ref={this._onLightboxRef} style={{ width: isLoading ? '400px' : width }}>
           <div className="lightbox__content">
             {isLoading && this.renderLoader()}
             <img
@@ -121,17 +148,10 @@ class Lightbox extends React.Component<LightboxProps> {
               onLoad={this._onImageLoad}
               hidden={isLoading}
             />
-            {(title || description) && (
-              <div className="lightbox__footer">
-                {title && <h3 className="lightbox__title">{title}</h3>}
-                {description && (
-                  <p className="lightbox__description">{description}</p>
-                )}
-              </div>
-            )}
+            {this.renderFooter()}
           </div>
-          <button className="lightbox__close" onClick={onClose}>
-            <span aria-hidden>&times;</span>
+          <button className="lightbox__close" onClick={this._onClose}>
+            <i className='fa fa-times fa-fw' />
           </button>
         </div>
       </div>

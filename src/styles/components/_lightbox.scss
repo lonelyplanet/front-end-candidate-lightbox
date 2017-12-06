@@ -33,14 +33,25 @@ body.lightbox-open {
 }
 
 .lightbox {
+  $max-width: 50rem;
+  $gutter: 2rem;
   $transition-duration: 0.25s;
 
   position: relative;
   margin: 5rem auto;
-  max-width: 600px;
+  padding: 2rem;
+  max-width: $max-width;
   background: #fff;
   transform: translate3d(0, 0, 0);
   transition: $transition-duration all;
+
+
+  // NOTE(zuko): I hate that I had to use an important here, but in this
+  // case we're overriding the fixed width inline style which is used to
+  // scale the lightbox to the image size.
+  @media screen and (max-width: $max-width + (2 * $gutter)) {
+    width: auto !important;
+  }
 
   .lightbox-wrapper--enter & {
     animation-name: lightbox-enter;
@@ -68,6 +79,7 @@ body.lightbox-open {
     left: 0;
     padding: 0 2rem;
     overflow-y: auto;
+    z-index: 1000;
     background: transparentize($background, 0.5);
     transition: background $transition-duration;
 
@@ -78,21 +90,53 @@ body.lightbox-open {
 
   &__close {
     position: absolute;
-    top: 5px;
-    right: 5px;
+    top: -0.15rem; // Magic numbers for centering within lightbox padding gutter
+    right: -0.55rem;
     z-index: 2;
-    font-size: 2rem;
+    font-size: 1.75rem;
     border: none;
     background: none;
-  }
+    opacity: 0.35;
+    transition: 0.25s opacity;
 
-  &__content {
-    position: relative;
-    padding: 2rem;
+    &:hover,
+    &:focus {
+      outline: none;
+      cursor: pointer;
+      opacity: 1;
+    }
   }
 
   &__image {
-    display: block;
+    width: 100%;
+  }
+
+  &__content {
     max-width: 100%;
+  }
+
+  &__loader {
+    position: relative;
+
+    .lightbox__image-placeholder {
+      padding-bottom: (9 / 16) * 100%;
+      background: rgb(150, 150, 150);
+    }
+
+    .lightbox__spinner {
+      font-size: 2.5em;
+      color: #fff;
+
+      &-wrapper {
+        display: flex;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        align-items: center;
+        justify-content: center;
+      }
+    }
   }
 }
