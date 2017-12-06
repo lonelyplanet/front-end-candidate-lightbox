@@ -1,0 +1,24 @@
+// Prevent the page from being scrollable while the lightbox is open.
+body.lightbox-open {
+  overflow: hidden;
+}
+
+.lightbox {
+  margin: 5rem auto;
+  background: #fff;
+
+  // Uppermost parent for the lightbox, acts as the backsplash and the
+  // container for the actual lightbox dialog.
+  &-wrapper {
+    position: fixed;
+    display: flex;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    align-items: start;
+    justify-content: center;
+    overflow-y: auto;
+    background: rgba(0, 0, 0, 0.5);
+  }
+}
