@@ -5,7 +5,7 @@ import Lightbox from '~/components/Lightbox'
 interface LightboxProviderProps {}
 interface LightboxProviderState {
   isOpen: boolean
-  lightboxProps: object | null
+  imageSrc: string | null
 }
 class LightboxProvider extends React.Component<
   LightboxProviderProps,
@@ -19,7 +19,7 @@ class LightboxProvider extends React.Component<
 
   state: LightboxProviderState = {
     isOpen: false,
-    lightboxProps: null,
+    imageSrc: null,
   }
 
   getChildContext() {
@@ -30,20 +30,23 @@ class LightboxProvider extends React.Component<
     }
   }
 
-  private _open = (props?: object) => {
-    this.setState({ isOpen: true, lightboxProps: props || null })
+  private _open = (imageSrc: string) => {
+    this.setState({
+      isOpen: true,
+      imageSrc,
+    })
   }
 
   private _close = () => {
-    this.setState({ isOpen: false, lightboxProps: null })
+    this.setState({ isOpen: false, imageSrc: null })
   }
 
   render() {
+    const { isOpen, imageSrc } = this.state
+
     return (
       <React.Fragment>
-        {this.state.isOpen && (
-          <Lightbox {...this.state.lightboxProps} onClose={this._close} />
-        )}
+        {isOpen && <Lightbox imageSrc={imageSrc!} onClose={this._close} />}
         {this.props.children}
       </React.Fragment>
     )

@@ -8,7 +8,9 @@ class Home extends React.Component<HomeProps> {
   }
 
   _onShowDemoLightbox = () => {
-    this.context.lightbox.open()
+    const IMAGE =
+      'https://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2014/4/11/1397210130748/Spring-Lamb.-Image-shot-2-011.jpg'
+    this.context.lightbox.open(IMAGE)
   }
 
   render() {
