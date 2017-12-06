@@ -1,2 +1,8 @@
 @import '~/normalize.css/normalize.css';
+@import 'typography';
 @import 'components/lightbox';
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
