@@ -1,0 +1,10 @@
+@import 'base';
+@import 'normalize';
+@import 'typography';
+@import 'components/buttons';
+@import 'components/lightbox';
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+}

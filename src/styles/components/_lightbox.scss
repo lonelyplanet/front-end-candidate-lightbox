@@ -1,0 +1,142 @@
+// Prevent the page from being scrollable while the lightbox is open.
+body.lightbox-open {
+  overflow: hidden;
+  padding-right: 15px; // Prevent the page from shifting when the scrollbar is removed.
+}
+
+@keyframes lightbox-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-5%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// NOTE(zuko): This shouldn't have to exist, since we should just be able to
+// use a reversed `lightbox-enter` animation. However, that animation kept
+// completing immediately for a reason I couldn't discern, so I'm just moving
+// on for now. Ideally we wouldn't duplicate this logic.
+@keyframes lightbox-leave {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-5%);
+  }
+}
+
+.lightbox {
+  $max-width: 50rem;
+  $gutter: 2rem;
+  $transition-duration: 0.25s;
+
+  position: relative;
+  margin: 5rem auto;
+  padding: 2rem;
+  max-width: $max-width;
+  background: #fff;
+  transform: translate3d(0, 0, 0);
+  transition: $transition-duration all;
+
+
+  // NOTE(zuko): I hate that I had to use an important here, but in this
+  // case we're overriding the fixed width inline style which is used to
+  // scale the lightbox to the image size.
+  @media screen and (max-width: $max-width + (2 * $gutter)) {
+    width: auto !important;
+  }
+
+  .lightbox-wrapper--enter & {
+    animation-name: lightbox-enter;
+    animation-duration: $transition-duration;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+  }
+
+  .lightbox-wrapper--leave & {
+    animation-name: lightbox-leave;
+    animation-duration: $transition-duration;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+  }
+
+  // Uppermost parent for the lightbox, acts as the backsplash and the
+  // container for the actual lightbox dialog.
+  &-wrapper {
+    $background: rgb(0, 0, 0);
+
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 0 2rem;
+    overflow-y: auto;
+    z-index: 1000;
+    background: transparentize($background, 0.5);
+    transition: background $transition-duration;
+
+    &--leave {
+      background: transparentize($background, 1);
+    }
+  }
+
+  &__close {
+    position: absolute;
+    top: -0.15rem; // Magic numbers for centering within lightbox padding gutter
+    right: -0.55rem;
+    z-index: 2;
+    font-size: 1.75rem;
+    border: none;
+    background: none;
+    opacity: 0.35;
+    transition: 0.25s opacity;
+
+    &:hover,
+    &:focus {
+      outline: none;
+      cursor: pointer;
+      opacity: 1;
+    }
+  }
+
+  &__image {
+    width: 100%;
+  }
+
+  &__content {
+    max-width: 100%;
+  }
+
+  &__loader {
+    position: relative;
+
+    .lightbox__image-placeholder {
+      padding-bottom: (9 / 16) * 100%;
+      background: rgb(150, 150, 150);
+    }
+
+    .lightbox__spinner {
+      font-size: 2.5em;
+      color: #fff;
+
+      &-wrapper {
+        display: flex;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+}
