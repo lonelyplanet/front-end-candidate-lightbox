@@ -1,8 +1,10 @@
 import * as React from 'react'
 
-interface LightboxProps {
+export interface LightboxProps {
   onClose: () => any
   imageSrc: string
+  title?: string
+  description?: string
 }
 interface LightboxState {
   isLoading: boolean
@@ -60,7 +62,7 @@ class Lightbox extends React.Component<LightboxProps> {
         this.props.onClose()
         break
       default:
-        // noop
+      // noop
     }
   }
 
@@ -81,7 +83,7 @@ class Lightbox extends React.Component<LightboxProps> {
   }
 
   render() {
-    const { imageSrc, onClose } = this.props
+    const { imageSrc, title, description, onClose } = this.props
     const { isLoading } = this.state
 
     return (
@@ -95,6 +97,14 @@ class Lightbox extends React.Component<LightboxProps> {
               onLoad={this._onImageLoad}
               hidden={isLoading}
             />
+            {(title || description) && (
+              <div className="lightbox__footer">
+                {title && <h3 className="lightbox__title">{title}</h3>}
+                {description && (
+                  <p className="lightbox__description">{description}</p>
+                )}
+              </div>
+            )}
           </div>
           <button className="lightbox__close" onClick={onClose}>
             <span aria-hidden>&times;</span>
