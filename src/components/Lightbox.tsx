@@ -8,6 +8,9 @@ interface LightboxState {
   isLoading: boolean
 }
 class Lightbox extends React.Component<LightboxProps> {
+  /** Ref to the lightbox DOM node */
+  _lightbox: HTMLDivElement | null
+
   state: LightboxState = {
     // NOTE(zuko): brief point of discussion: We could set this to `false` as
     // the sane initial value and then immediately change it to `true` in
@@ -26,10 +29,27 @@ class Lightbox extends React.Component<LightboxProps> {
 
   componentDidMount() {
     document.body.classList.add('lightbox-open')
+    document.addEventListener('click', this._checkForOutsideClick)
   }
 
   componentWillUnmount() {
     document.body.classList.remove('lightbox-open')
+    document.removeEventListener('click', this._checkForOutsideClick)
+  }
+
+  /**
+   * Handles all click events that bubble up to the document root. If the
+   * click event did not originate from within the lightbox, then we treat
+   * that as an intent to close the lightbox.
+   */
+  private _checkForOutsideClick = (e: any) => {
+    if (this._lightbox && !this._lightbox.contains(e.target)) {
+      this.props.onClose()
+    }
+  }
+
+  private _onLightboxRef = (node: HTMLDivElement) => {
+    this._lightbox = node
   }
 
   private _onImageLoad = () => {
@@ -38,19 +58,19 @@ class Lightbox extends React.Component<LightboxProps> {
 
   renderLoader() {
     return (
-      <div className="lightbox__loader">
+      <div className='lightbox__loader'>
         <h2>Loading</h2>
       </div>
     )
   }
 
   render() {
-    const { imageSrc } = this.props
+    const { imageSrc, onClose } = this.props
     const { isLoading } = this.state
 
     return (
       <div className="lightbox-wrapper">
-        <div className="lightbox">
+        <div className="lightbox" ref={this._onLightboxRef}>
           <div className="lightbox__content">
             {isLoading && this.renderLoader()}
             <img
@@ -60,7 +80,7 @@ class Lightbox extends React.Component<LightboxProps> {
               hidden={isLoading}
             />
           </div>
-          <button className="lightbox__close" onClick={this.props.onClose}>
+          <button className="lightbox__close" onClick={onClose}>
             <span aria-hidden>&times;</span>
           </button>
         </div>
