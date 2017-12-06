@@ -3,18 +3,27 @@ const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
+const __DEV__ = process.env.NODE_ENV === 'development'
+const __PROD__ = process.env.NODE_ENV === 'production'
+
 const extractStyles = new ExtractTextPlugin({
   filename: 'styles/[name].[contenthash].css',
   allChunks: true,
-  disable: process.env.NODE_ENV === 'development',
+  disable: __DEV__,
 })
 
 const webpackConfig = {
   entry: {
     main: [path.resolve(__dirname, 'src/index')],
+    vendor: [
+      'classnames',
+      'prop-types',
+      'react',
+      'react-dom',
+    ],
   },
   target: 'web',
-  devtool: 'cheap-module-eval-source-map',
+  devtool: __DEV__ ? 'cheap-module-eval-source-map' : 'source-map',
   performance: {
     hints: false,
   },
@@ -86,7 +95,8 @@ const webpackConfig = {
   plugins: [
     extractStyles,
     new webpack.DefinePlugin({
-      __DEV__: process.env.NODE_ENV === 'development',
+      __DEV__,
+      __PROD__,
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
       },
@@ -101,6 +111,35 @@ const webpackConfig = {
       },
     }),
   ],
+}
+
+if (__PROD__) {
+  const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+
+  webpackConfig.plugins.push(
+    new webpack.optimize.CommonsChunkPlugin({ names: ['manifest', 'vendor'] }),
+    new webpack.optimize.ModuleConcatenationPlugin(),
+    new webpack.LoaderOptionsPlugin({
+      minimize: true,
+      debug: false,
+    }),
+    new UglifyJsPlugin({
+      sourceMap: true,
+      comments: false,
+      compress: {
+        warnings: false,
+        screw_ie8: true,
+        conditionals: true,
+        unused: true,
+        comparisons: true,
+        sequences: true,
+        dead_code: true,
+        evaluate: true,
+        if_return: true,
+        join_vars: true,
+      },
+    })
+  )
 }
 
 module.exports = webpackConfig
