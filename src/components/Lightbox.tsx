@@ -118,7 +118,7 @@ class Lightbox extends React.Component<LightboxProps> {
 
   renderFooter() {
     const { title, description } = this.props
-    if (!(!title || description)) return
+    if (!(title || description)) return
 
     return (
       <div className="lightbox__footer">
@@ -129,7 +129,7 @@ class Lightbox extends React.Component<LightboxProps> {
   }
 
   render() {
-    const { imageSrc } = this.props
+    const { imageSrc, title, description } = this.props
     const { isLoading, transition, dimensions: { width } } = this.state
 
     return (
@@ -142,12 +142,14 @@ class Lightbox extends React.Component<LightboxProps> {
         <div className="lightbox" ref={this._onLightboxRef} style={{ width: isLoading ? '400px' : width }}>
           <div className="lightbox__content">
             {isLoading && this.renderLoader()}
-            <img
+            {imageSrc && (<img
               className="lightbox__image"
               src={imageSrc}
               onLoad={this._onImageLoad}
+              title={title}
+              alt={description}
               hidden={isLoading}
-            />
+            />)}
             {this.renderFooter()}
           </div>
           <button className="lightbox__close" onClick={this._onClose}>

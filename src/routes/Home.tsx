@@ -1,3 +1,4 @@
+import axios from 'axios'
 import * as React from 'react'
 import * as PropTypes from 'prop-types'
 
@@ -22,6 +23,12 @@ class Home extends React.Component<HomeProps> {
     })
   }
 
+  _onOpenAsyncLightbox = () => {
+    this.context.lightbox.openAsync(() => {
+      return axios.get('/api/random-image').then(res => res.data)
+    })
+  }
+
   render() {
     return (
       <div className="container">
@@ -38,6 +45,12 @@ class Home extends React.Component<HomeProps> {
               Open {size} lightbox
             </button>
           ))}
+            <button
+              className="btn btn-primary"
+              onClick={this._onOpenAsyncLightbox}
+            >
+              Open image from server
+            </button>
         </section>
         <hr />
         <p>

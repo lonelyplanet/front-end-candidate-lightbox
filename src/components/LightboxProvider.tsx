@@ -5,7 +5,7 @@ import Lightbox, { LightboxProps } from '~/components/Lightbox'
 interface LightboxProviderProps {}
 interface LightboxProviderState {
   isOpen: boolean
-  lightboxProps: LightboxProps | null
+  lightboxProps: Partial<LightboxProps> | null
 }
 class LightboxProvider extends React.Component<
   LightboxProviderProps,
@@ -26,6 +26,7 @@ class LightboxProvider extends React.Component<
     return {
       lightbox: {
         open: this._open,
+        openAsync: this._openAsync,
       },
     }
   }
@@ -41,10 +42,30 @@ class LightboxProvider extends React.Component<
       isOpen: true,
       lightboxProps: {
         imageSrc,
-        onClose: this._close,
         ...opts,
       },
     })
+  }
+
+  private _openAsync = async (
+    getImage: () => { src: string; title?: string; description?: string },
+  ) => {
+    // We open the lightbox before the request completes so that the user sees
+    // a loading state. The Lightbox component only cares about the loading
+    // state of the image itself and not any additional requests.
+    this.setState({ isOpen: true })
+    const { src, title, description } = await getImage()
+
+    // Don't re-open the lightbox if the user has closed it.
+    if (this.state.isOpen) {
+      this.setState({
+        lightboxProps: {
+          imageSrc: src,
+          title,
+          description,
+        },
+      })
+    }
   }
 
   private _close = () => {
@@ -53,10 +74,11 @@ class LightboxProvider extends React.Component<
 
   render() {
     const { isOpen, lightboxProps } = this.state
-
     return (
       <React.Fragment>
-        {isOpen && <Lightbox {...lightboxProps!} />}
+        {isOpen && (
+          <Lightbox {...lightboxProps as LightboxProps} onClose={this._close} />
+        )}
         {this.props.children}
       </React.Fragment>
     )

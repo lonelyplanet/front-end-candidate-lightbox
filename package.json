@@ -55,6 +55,7 @@
     }
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "classnames": "^2.2.5",
     "express": "^4.16.2",
     "normalize.css": "^7.0.0",
