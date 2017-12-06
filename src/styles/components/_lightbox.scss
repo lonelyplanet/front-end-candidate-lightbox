@@ -1,24 +1,79 @@
 // Prevent the page from being scrollable while the lightbox is open.
 body.lightbox-open {
   overflow: hidden;
+  padding-right: 15px; // Prevent the page from shifting when the scrollbar is removed.
+}
+
+@keyframes lightbox-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-5%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// NOTE(zuko): This shouldn't have to exist, since we should just be able to
+// use a reversed `lightbox-enter` animation. However, that animation kept
+// completing immediately for a reason I couldn't discern, so I'm just moving
+// on for now. Ideally we wouldn't duplicate this logic.
+@keyframes lightbox-leave {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-5%);
+  }
 }
 
 .lightbox {
+  $transition-duration: 0.25s;
+
   position: relative;
   margin: 5rem auto;
-  max-width: 450px;
+  max-width: 600px;
   background: #fff;
+  transform: translate3d(0, 0, 0);
+  transition: $transition-duration all;
+
+  .lightbox-wrapper--enter & {
+    animation-name: lightbox-enter;
+    animation-duration: $transition-duration;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+  }
+
+  .lightbox-wrapper--leave & {
+    animation-name: lightbox-leave;
+    animation-duration: $transition-duration;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+  }
 
   // Uppermost parent for the lightbox, acts as the backsplash and the
   // container for the actual lightbox dialog.
   &-wrapper {
+    $background: rgb(0, 0, 0);
+
     position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
+    padding: 0 2rem;
     overflow-y: auto;
-    background: rgba(0, 0, 0, 0.5);
+    background: transparentize($background, 0.5);
+    transition: background $transition-duration;
+
+    &--leave {
+      background: transparentize($background, 1);
+    }
   }
 
   &__close {

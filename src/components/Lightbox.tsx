@@ -1,4 +1,5 @@
 import * as React from 'react'
+import * as cx from 'classnames'
 
 export interface LightboxProps {
   onClose: () => any
@@ -8,6 +9,7 @@ export interface LightboxProps {
 }
 interface LightboxState {
   isLoading: boolean
+  transition: 'enter' | 'leave' | null
 }
 class Lightbox extends React.Component<LightboxProps> {
   /** Ref to the lightbox DOM node */
@@ -27,6 +29,7 @@ class Lightbox extends React.Component<LightboxProps> {
     // comment above, but lately I've been trying to future-proof my React
     // code and felt it warranted noting. I could very well wrong in this.
     isLoading: true,
+    transition: 'enter',
   }
 
   componentDidMount() {
@@ -48,7 +51,7 @@ class Lightbox extends React.Component<LightboxProps> {
    */
   private _checkForOutsideClick = (e: any) => {
     if (this._lightbox && !this._lightbox.contains(e.target)) {
-      this.props.onClose()
+      this._onClose()
     }
   }
 
@@ -59,11 +62,27 @@ class Lightbox extends React.Component<LightboxProps> {
   private _checkKeydownEvent = (e: any) => {
     switch (e.key) {
       case 'Escape':
-        this.props.onClose()
+        this._onClose()
         break
       default:
       // noop
     }
+  }
+
+  private _onClose = () => {
+    if (this.state.transition === 'leave') return
+
+    this.setState({ transition: 'leave' }, () => {
+      // Wait for the hide animation to complete. This is unfortunate coupling
+      // between the component and its CSS, since we have to keep the animation
+      // durations consistent. This could likely be improved by either setting
+      // the animation duration directly from the JS or by incorporating more
+      // modern CSS-in-JS solutions. For now, I'm just keeping it simple.
+      setTimeout(() => {
+        this.props.onClose()
+      }, 250)
+    })
+    this._onClose()
   }
 
   private _onLightboxRef = (node: HTMLDivElement) => {
@@ -84,10 +103,15 @@ class Lightbox extends React.Component<LightboxProps> {
 
   render() {
     const { imageSrc, title, description, onClose } = this.props
-    const { isLoading } = this.state
+    const { isLoading, transition } = this.state
 
     return (
-      <div className="lightbox-wrapper">
+      <div
+        className={cx('lightbox-wrapper', {
+          'lightbox-wrapper--enter': transition === 'enter',
+          'lightbox-wrapper--leave': transition === 'leave',
+        })}
+      >
         <div className="lightbox" ref={this._onLightboxRef}>
           <div className="lightbox__content">
             {isLoading && this.renderLoader()}
