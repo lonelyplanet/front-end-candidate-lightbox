@@ -45,12 +45,12 @@ class Home extends React.Component<HomeProps> {
               Open {size} lightbox
             </button>
           ))}
-            <button
-              className="btn btn-primary"
-              onClick={this._onOpenAsyncLightbox}
-            >
-              Open image from server
-            </button>
+          <button
+            className="btn btn-primary"
+            onClick={this._onOpenAsyncLightbox}
+          >
+            Open image from server
+          </button>
         </section>
         <hr />
         <p>

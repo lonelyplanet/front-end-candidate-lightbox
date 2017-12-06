@@ -108,9 +108,9 @@ class Lightbox extends React.Component<LightboxProps> {
   renderLoader() {
     return (
       <div className="lightbox__loader">
-        <div className='lightbox__image-placeholder' />
-        <div className='lightbox__spinner-wrapper'>
-          <i className='lightbox__spinner fa fa-spinner fa-spin fa-fw' />
+        <div className="lightbox__image-placeholder" />
+        <div className="lightbox__spinner-wrapper">
+          <i className="lightbox__spinner fa fa-spinner fa-spin fa-fw" />
         </div>
       </div>
     )
@@ -139,21 +139,27 @@ class Lightbox extends React.Component<LightboxProps> {
           'lightbox-wrapper--leave': transition === 'leave',
         })}
       >
-        <div className="lightbox" ref={this._onLightboxRef} style={{ width: isLoading ? '400px' : width }}>
+        <div
+          className="lightbox"
+          ref={this._onLightboxRef}
+          style={{ width: isLoading ? '400px' : width }}
+        >
           <div className="lightbox__content">
             {isLoading && this.renderLoader()}
-            {imageSrc && (<img
-              className="lightbox__image"
-              src={imageSrc}
-              onLoad={this._onImageLoad}
-              title={title}
-              alt={description}
-              hidden={isLoading}
-            />)}
+            {imageSrc && (
+              <img
+                className="lightbox__image"
+                src={imageSrc}
+                onLoad={this._onImageLoad}
+                title={title}
+                alt={description}
+                hidden={isLoading}
+              />
+            )}
             {this.renderFooter()}
           </div>
           <button className="lightbox__close" onClick={this._onClose}>
-            <i className='fa fa-times fa-fw' />
+            <i className="fa fa-times fa-fw" />
           </button>
         </div>
       </div>
