@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`matches snapshot 1`] = `
-<h1>
-  Hello Lonely Planet
-</h1>
+<LightboxProvider>
+  <Home />
+</LightboxProvider>
 `;

@@ -1,32 +1,14 @@
 import * as React from 'react'
-import Lightbox from '~/components/Lightbox'
+import LightboxProvider from '~/components/LightboxProvider'
+import HomeView from '~/routes/Home'
 
 interface AppProps {}
-interface AppState {
-  showLightbox: boolean
-}
-class App extends React.Component<AppProps, AppState> {
-  state: AppState = {
-    showLightbox: false,
-  }
-
-  _onShowLightbox = () => {
-    this.setState({ showLightbox: true })
-  }
-
-  _onCloseLightbox = () => {
-    this.setState({ showLightbox: false })
-  }
-
-  render () {
+class App extends React.Component<AppProps> {
+  render() {
     return (
-      <div>
-        <h1>Hello Lonely Planet</h1>
-        <button onClick={this._onShowLightbox}>Open Demo Lightbox</button>
-        {this.state.showLightbox && (
-          <Lightbox onClose={this._onCloseLightbox} />
-        )}
-      </div>
+      <LightboxProvider>
+        <HomeView />
+      </LightboxProvider>
     )
   }
 }
