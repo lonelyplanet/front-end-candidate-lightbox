@@ -1,0 +1,6 @@
+@import '~@/styles/variables';
+
+:export {
+  imageFadeTimeMs: $image-fade-time;
+  lightboxFadeTimeMs: $lightbox-fade-time;
+}

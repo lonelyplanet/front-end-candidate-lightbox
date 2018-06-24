@@ -1,0 +1,45 @@
+@import '~@/styles/variables';
+@import '~@/styles/fonts';
+
+
+html,
+body {
+  align-content: stretch;
+  align-items: center;
+  background: $beige;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  font: 300 2vmax/1 $source-code-pro;
+  font-size: 16px;
+  height: 100%;
+  justify-content: center;
+  margin: 0;
+  min-height: 100vh;
+  overflow: auto;
+  padding: 0;
+  text-align: center;
+  width: 100%;
+}
+
+svg {
+  flex: 0 1 auto;
+  width: 85vmin;
+}
+
+#content { // sass-lint:disable-line no-ids
+  flex: 0 1 auto;
+}
+
+.button {
+  background: $blue;
+  border-radius: 1vmin;
+  color: $white;
+  display: inline-block;
+  padding: 2vmin 4vmin;
+  text-decoration: none;
+
+  &:hover {
+    background: $another-blue;
+  }
+}

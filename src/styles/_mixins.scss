@@ -1,0 +1,8 @@
+@mixin fade-in($duration) {
+  opacity: 0;
+  transition: opacity $duration ease-out;
+
+  &.active {
+    opacity: 1;
+  }
+}

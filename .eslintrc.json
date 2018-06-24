@@ -1,0 +1,34 @@
+{
+  "env": {
+    "browser": true,
+    "jest/globals": true
+  },
+  "extends": [
+    "airbnb",
+    "plugin:jest/recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2017,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "jest"
+  ],
+  "rules": {
+    "space-unary-ops": [
+      "error",
+      {
+        "words": true,
+        "nonwords": false,
+        "overrides": {
+          "!": true,
+          "!!": true
+        }
+      }
+    ],
+    "arrow-parens": ["error", "as-needed"]
+  },
+  "settings": {
+    "import/resolver": "webpack"
+  }
+}

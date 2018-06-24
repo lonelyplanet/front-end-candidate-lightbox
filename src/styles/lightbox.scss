@@ -1,0 +1,74 @@
+@import '~@/styles/variables';
+@import '~@/styles/mixins';
+
+
+.lightbox {
+  @include fade-in($duration: $lightbox-fade-time-ms);
+  align-items: center;
+  background-color: $overlay-color;
+  bottom: 0;
+  cursor: pointer;
+  display: hidden;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: -1;
+
+  &.active {
+    display: flex;
+    z-index: 1;
+  }
+
+  &.is-closing {
+    opacity: 0;
+  }
+
+  .content {
+    align-items: center;
+    cursor: default;
+    display: flex;
+    justify-content: center;
+    max-width: 60vw;
+    z-index: 1;
+
+    button {
+      // sass-lint:disable-block nesting-depth
+      background-color: transparent;
+      border: 0;
+      color: $white;
+      cursor: pointer;
+      font-size: 1.5rem;
+      line-height: 1.2rem;
+      padding: 16px;
+      transition: transform 100ms;
+
+      &.previous {
+        margin-right: 12px;
+      }
+
+      &.next {
+        margin-left: 12px;
+      }
+
+      &.close {
+        left: 0;
+        position: absolute;
+        top: 0;
+      }
+
+      &:hover {
+        text-shadow: $button-text-shadow;
+        transform: scale(1.1);
+      }
+    }
+
+    img {
+      // sass-lint:disable-block nesting-depth
+      @include fade-in($duration: $image-fade-time-ms);
+      max-height: 90vh;
+      max-width: 80vw;
+    }
+  }
+}
